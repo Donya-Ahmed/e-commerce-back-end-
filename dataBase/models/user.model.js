@@ -1,17 +1,21 @@
 const mongoose=require("mongoose")
 const bcryptjs=require('bcryptjs')
 const jwt=require('jsonwebtoken')
+const validator=require('validator')
 const userSchema=mongoose.Schema({
     name:{
         type:String,
         trim:true,
         required:true
     },
-    username:{
+    email:{
         type:String,
         trim:true,
         required:true,
-        unique:true
+        unique:true,
+        valid(value){
+            if(!validator.isEmail(value)) throw new Error("invalid email")
+        }
     },
     birthDate:{
         type:Date,
