@@ -1,0 +1,52 @@
+user model
+1-register-->1-hash pass(bcrypt)
+             2-save data 
+
+  2-login-->username,pass    
+  find one username
+  dehashing pass 
+  return data
+  generate token                  
+
+  3-auth  -->1-get data from header
+  2-veify the token (_id)
+  3-get user(token,_id)
+  ---------------------------------------
+  product 
+  -title{string}
+  -discription {string}
+  -categories-->enum['electroncis','clouthes','supermarket','furniture','books']
+  -subcategory{string}
+  -attributes[{attributeName,values=[{value,quantity}]}]
+  -price{}
+  -img
+  -avaliable:boolen
+  ---------------------------------------
+  attributes":[
+  {
+    "attributeName":"color",
+    "values":[
+       {
+        "value":"blue",
+        "quantity":3
+       }
+
+
+    ]
+  }
+]
+---------------------------------
+operation of products in model user1-getall
+const products=await productModel.find()
+
+2-get recent 4 products
+const products=await productModel.find().sort({createdAt:-1}).limit(4)
+
+3-get product acounding to categories
+const products=await productModel.find({categories:req.params.category})
+
+------------------------------
+cart
+1-userid
+2-products[{idproduct,quantity}]
+
