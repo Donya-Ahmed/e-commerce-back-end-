@@ -123,6 +123,10 @@ class user{
 
     }
 
+    static me = async(req,res)=>{
+        res.status(200).send({apiStatus:true,data:req.user, message:'data featched'})
+    }
+
     static showProducts = async (req, res) => {
         try {
             const products=await productModel.find()
