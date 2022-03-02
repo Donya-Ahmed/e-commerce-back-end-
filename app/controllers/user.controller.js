@@ -6,14 +6,14 @@ class user{
         try{
           const user=new userModel(req.body)
           await user.save()
-          res.send({
+          res.status(200).send({
             apiStatus:true,
              data:user,
               message:"success adding user"
         })
         }
         catch(e){
-            res.send({
+            res.status(500).send({
                 apiStatus:false,
                  data:e.message,
                   message:"error adding user"
@@ -27,14 +27,14 @@ class user{
           const user=await userModel.login(req.body.username,req.body.password)
          const token= await user.generateToken()
         // res.send(user)
-          res.send({
+          res.status(200).send({
             apiStatus:true,
              data:{user, token},
               message:"login "
         })
         }
         catch(e){
-            res.send({
+            res.status(500).send({
                 apiStatus:false,
                  data:e.message,
                   message:"error login"
@@ -47,14 +47,14 @@ class user{
         try{
          req.user.tokens=req.user.tokens.filter(token=>token.token!=req.token)
          await req.user.save()
-          res.send({
+          res.status(200).send({
             apiStatus:true,
              data:req.user,
               message:"logout"
         })
         }
         catch(e){
-            res.send({
+            res.status(500).send({
                 apiStatus:false,
                  data:e.message,
                   message:"error logout"
@@ -67,14 +67,14 @@ class user{
         try{
         req.user.image=req.file.path
         await req.user.save()
-          res.send({
+          res.status(200).send({
             apiStatus:true,
              data:req.user,
               message:"success upload image"
         })
         }
         catch(e){
-            res.send({
+            res.status(500).send({
                 apiStatus:false,
                  data:e.message,
                   message:"error in upload image"
@@ -87,14 +87,14 @@ class user{
         try{
           const user=new userModel({...req.body,typeuser:'admin'})
           await user.save()
-          res.send({
+          res.status(200).send({
             apiStatus:true,
              data:user,
               message:"success adding admin"
         })
         }
         catch(e){
-            res.send({
+            res.status(500).send({
                 apiStatus:false,
                  data:e.message,
                   message:"error adding admin"
@@ -107,14 +107,14 @@ class user{
         try{
         await req.user.updateOne(req.body)
         await req.user.save()
-          res.send({
+          res.status(200).send({
             apiStatus:true,
              data:req.user,
               message:"success upload image"
         })
         }
         catch(e){
-            res.send({
+            res.status(500).send({
                 apiStatus:false,
                  data:e.message,
                   message:"error in upload image"
@@ -126,14 +126,14 @@ class user{
     static showProducts = async (req, res) => {
         try {
             const products=await productModel.find()
-            res.send({
+            res.status(200).send({
                 apiStatus: true,
                 data:products,
                 message: "sucess show products"
             })
         }
         catch (e) {
-            res.send({
+            res.status(500).send({
                 apiStatus: false,
                 data: e.message,
                 message: "error show products"
@@ -143,14 +143,14 @@ class user{
     static showProduct = async (req, res) => {
         try {
             const product=await productModel.findById(req.params.id)
-            res.send({
+            res.status(200).send({
                 apiStatus: true,
                 data:product,
                 message: "sucess show product"
             })
         }
         catch (e) {
-            res.send({
+            res.status(500).send({
                 apiStatus: false,
                 data: e.message,
                 message: "error show product"
@@ -162,14 +162,14 @@ class user{
     static showProductByCategory = async (req, res) => {
         try {
             const products=await productModel.find({categories:req.params.category})
-            res.send({
+            res.status(200).send({
                 apiStatus: true,
                 data:products,
                 message: "sucess show product"
             })
         }
         catch (e) {
-            res.send({
+            res.status(500).send({
                 apiStatus: false,
                 data: e.message,
                 message: "error show product"
@@ -181,14 +181,14 @@ class user{
     static sortProducts= async (req, res) => {
         try {
             const products=await productModel.find().sort({createdAt:-1}).limit(4)
-            res.send({
+            res.status(200).send({
                 apiStatus: true,
                 data:products,
                 message: "sucess show product"
             })
         }
         catch (e) {
-            res.send({
+            res.status(500).send({
                 apiStatus: false,
                 data: e.message,
                 message: "error show product"
