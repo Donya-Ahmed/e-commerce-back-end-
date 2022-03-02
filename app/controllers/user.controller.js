@@ -124,7 +124,15 @@ class user{
     }
 
     static me = async(req,res)=>{
-        res.status(200).send({apiStatus:true,data:req.user, message:'data featched'})
+        try{
+            res.status(200).send({apiStatus:true,data:req.user, message:'data featched'})
+
+        }
+        catch(e){
+            res.status(500).send({apiStatus:false,data:e.message, message:'data  can not featched'})
+
+        }
+
     }
 
     static showProducts = async (req, res) => {

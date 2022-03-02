@@ -6,7 +6,7 @@ const upload=require("../middleware/fileUpload")
 route.post("/register",userController.register)
 route.post("/login",userController.login)
 route.get("/logout",auth,userController.logout)
-router.get("/me", auth ,userController.me)
+route.get("/me", auth ,userController.me)
 
 route.get("/profile",auth,upload.single('profile'),userController.profile)
 route.post('/registerAdmin',userController.registerAdmin)
