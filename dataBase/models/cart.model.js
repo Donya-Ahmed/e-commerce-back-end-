@@ -20,6 +20,16 @@ const cartModel=mongoose.Schema({
             price:{
                 type:Number,
                 required:true
+            },
+            image:{
+                type:String,
+                required:true
+
+            },
+            title:{
+                type:String,
+                required:true
+
             }
         }
     ]

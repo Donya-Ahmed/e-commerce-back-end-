@@ -11,7 +11,7 @@ const storage = multer.diskStorage({
     filename: function (req, file, cb) {
        let fileName=""
          if(req.user) {
-            fileName=`${file.fieldname}-${req.user._id}-${path.extname(file.originalname)}`
+            fileName=`${file.fieldname}-${Date.now()}-${path.extname(file.originalname)}`
          }
     else{
         fileName=`${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`

@@ -7,9 +7,9 @@ class Cart{
             if(!cart) cart= new cartModel({userId:req.user._id})
          const product=await productModel.findById(req.body.productId)
         //    const cart=await cartModel.findById(req.params.id)
-        cart.products.push({...req.body,price:product.price})
+        cart.products.push({...req.body,price:product.price,image:product.image,title:product.title})
            await cart.save()
-           res.send({
+           res.status(200).send({
             apiStatus:true,
              data:cart,
               message:"success create cart"
@@ -18,7 +18,7 @@ class Cart{
 
         }
         catch(e){
-            res.send({
+            res.status(500).send({
                 apiStatus:false,
                  data:e.message,
                   message:"error create cart"
@@ -54,13 +54,14 @@ class Cart{
             const index=cart.products.findIndex(obj=>obj.productId==req.params.productId)
             cart.products.splice(index,1)
             await cart.save()
-            res.send({
+            res.status(200).send({
+                data:cart,
              apiStatus:true,
              message:"success delete from cart"
          })
         }
         catch(e){
-            res.send({
+            res.status(500).send({
                 apiStatus:false,
                  data:e.message,
                   message:"error delete from cart"
@@ -75,14 +76,14 @@ class Cart{
             cart.products.splice(index,1)
             cart.products.push(req.body)
             await cart.save()
-            res.send({
+            res.status(200).send({
              apiStatus:true,
              message:"success edit cart"
          })
            
         }
         catch(e){
-            res.send({
+            res.status(500).send({
                 apiStatus:false,
                  data:e.message,
                   message:"error edit cart"
@@ -94,13 +95,13 @@ class Cart{
         try{
             const cart=await cartModel.findByIdAndDelete(req.params.id)
                     await cart.save()
-                    res.send({
+                    res.status(200).send({
                         apiStatus: true,
                         message: "sucess delete cart"
                     })
         }
         catch(e){
-            res.send({
+            res.status(500).send({
                 apiStatus:false,
                  data:e.message,
                   message:"error delete cart"
@@ -111,7 +112,7 @@ class Cart{
     static showUserCart=async(req,res)=>{
         try{
             await req.user.populate("mycarts")
-            res.send({
+            res.status(200).send({
                 apiStatus:true,
                  data:req.user.mycarts,
                   message:"success showing cart"
@@ -119,7 +120,7 @@ class Cart{
            
         }
         catch(e){
-            res.send({
+            res.status(500).send({
                 apiStatus:false,
                  data:e.message,
                   message:"error showing cart"

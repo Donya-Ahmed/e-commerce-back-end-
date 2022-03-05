@@ -24,7 +24,7 @@ class user{
 
     static login=async(req,res)=>{
         try{
-          const user=await userModel.login(req.body.username,req.body.password)
+          const user=await userModel.login(req.body.email,req.body.password)
          const token= await user.generateToken()
         // res.send(user)
           res.status(200).send({
@@ -65,6 +65,7 @@ class user{
 
     static profile=async(req,res)=>{
         try{
+        
         req.user.image=req.file.path
         await req.user.save()
           res.status(200).send({
@@ -105,8 +106,11 @@ class user{
 
     static profileEdit=async(req,res)=>{
         try{
-        await req.user.updateOne(req.body)
-        await req.user.save()
+        // await req.user.updateOne(req.body)
+        const user=await userModel.findByIdAndUpdate(req.user._id,req.body)
+            
+        await user.save()
+        // await req.user.save()
           res.status(200).send({
             apiStatus:true,
              data:req.user,
@@ -124,14 +128,11 @@ class user{
     }
 
     static me = async(req,res)=>{
-        try{
+       
             res.status(200).send({apiStatus:true,data:req.user, message:'data featched'})
 
-        }
-        catch(e){
-            res.status(500).send({apiStatus:false,data:e.message, message:'data  can not featched'})
-
-        }
+        
+        
 
     }
 

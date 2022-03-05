@@ -7,10 +7,10 @@ class image{
             // fs.rename(req.file.path,newName,()=>{})
          //    req.user.image=newName
          //    await req.save()
-           res.send(req.file)
+           res.status(200).send(req.file)
         }
         catch(e){
-            res.send({
+            res.status(500).send({
                 apiStatus:false,
                  data:e.message,
                   message:"error adding image"

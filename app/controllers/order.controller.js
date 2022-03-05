@@ -8,7 +8,7 @@ class Order{
          await order.calculate()
       
         await order.save()
-           res.send({
+           res.status(200).send({
             apiStatus:true,
              data:order,
               message:"success create order"
@@ -17,7 +17,7 @@ class Order{
 
         }
         catch(e){
-            res.send({
+            res.status(500).send({
                 apiStatus:false,
                  data:e.message,
                   message:"error create order"
@@ -30,13 +30,13 @@ class Order{
         try{
             const order=await orderModel.findByIdAndDelete(req.params.id)
                     await order.save()
-                    res.send({
+                    res.status(200).send({
                         apiStatus: true,
                         message: "sucess delete order"
                     })
         }
         catch(e){
-            res.send({
+            res.status(500).send({
                 apiStatus:false,
                  data:e.message,
                   message:"error delete order"
@@ -48,7 +48,7 @@ class Order{
     static showUserOrder=async(req,res)=>{
         try{
             await req.user.populate("myorders")
-            res.send({
+            res.status(200).send({
                 apiStatus:true,
                  data:req.user.myorders,
                   message:"success showing order"
@@ -56,7 +56,7 @@ class Order{
            
         }
         catch(e){
-            res.send({
+            res.status(500).send({
                 apiStatus:false,
                  data:e.message,
                   message:"error showing order"

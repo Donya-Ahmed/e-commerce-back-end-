@@ -23,5 +23,8 @@ app.use("/api/cart",cartRoutes)
 
 const orderRoutes=require("../../routes/order.routes")
 app.use("/api/order",orderRoutes)
-
+app.get('/frontEnd/public/product/:imageName',(req,res)=>{
+    const path=require("path")
+    res.sendFile(path.join(__dirname,`../../frontEnd/public/product/${req.params.imageName}`))
+})
 module.exports=app

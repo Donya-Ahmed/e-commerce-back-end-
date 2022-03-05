@@ -61,8 +61,8 @@ userSchema.pre('save',async function(){
     if(this.isModified('password')) 
     this.password=await bcryptjs.hash(this.password,parseInt(process.env.SALT))
 })
-userSchema.statics.login=async(username,password)=>{
-  const data=await user.findOne({username})
+userSchema.statics.login=async(email,password)=>{
+  const data=await user.findOne({email})
   if(!data) throw new Error('invalid user name')
   const valid=await bcryptjs.compare(password,data.password)
   if(!valid) throw new Error ('invalid password')

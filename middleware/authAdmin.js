@@ -14,7 +14,7 @@ next()
 }
 
 catch(e){
-    res.send({apiStatus:false, date:e.message, message:"not authorized"})
+    res.status(500).send({apiStatus:false, date:e.message, message:"not authorized"})
 }
 }
 module.exports=authAdmin
